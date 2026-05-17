@@ -1,0 +1,13 @@
+stego/cover.wav
+stego/stego.wav
+stego/secret.png
+stego/spectrogram_dwt_stego.py
+stego/embed_task.py
+stego/generate_cover.py
+stego/generate_secret_image.py
+stego/analyze_audio.py
+stego/refresh_status.py
+stego/.istft_signal_created
+stego/.dwt_highfreq_embedded
+stego/.analysis_done
+stego/.local/result/spectrogram_dwt_check.txt

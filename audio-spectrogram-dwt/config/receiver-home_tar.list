@@ -1,0 +1,5 @@
+stego/cover.wav
+stego/stego.wav
+stego/recovered.txt
+stego/spectrogram_dwt_stego.py
+stego/generate_secret_image.py
