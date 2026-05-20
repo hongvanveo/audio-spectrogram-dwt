@@ -2,13 +2,19 @@
 import argparse
 import math
 import os
+import random
 import struct
 import wave
 import zlib
 from array import array
 
 
-RESULT = os.path.expanduser("~/.local/result/spectrogram_dwt_check.txt")
+def home_path(*parts):
+    base = os.environ.get("HOME") or os.path.expanduser("~")
+    return os.path.join(base, *parts)
+
+
+RESULT = home_path(".local", "result", "spectrogram_dwt_check.txt")
 
 
 def mark(token):
@@ -109,8 +115,22 @@ def read_png_gray(path):
                 for j in range(0, len(recon), 3)
             ])
         prev = recon
-    mark("PASS_IMAGE_PROCESSED")
     return rows
+
+
+def permute_image(image, key):
+    height = len(image)
+    width = len(image[0]) if image else 0
+    flat = [value for row in image for value in row]
+    order = list(range(len(flat)))
+    rng = random.Random(key)
+    rng.shuffle(order)
+    shuffled = [flat[idx] for idx in order]
+    out = []
+    for start in range(0, len(shuffled), width):
+        out.append(shuffled[start:start + width])
+    mark("PASS_IMAGE_PROCESSED")
+    return out
 
 
 def inverse_stft_from_image(image, out_len, sample_rate):
@@ -140,28 +160,51 @@ def inverse_stft_from_image(image, out_len, sample_rate):
     return scaled
 
 
-def haar_dwt(samples):
-    even_len = len(samples) - (len(samples) % 2)
+def haar_dwt_level(samples):
     approx = []
     detail = []
     inv = 1.0 / math.sqrt(2.0)
-    for i in range(0, even_len, 2):
+    for i in range(0, len(samples), 2):
         a = samples[i]
-        b = samples[i + 1]
+        b = samples[i + 1] if i + 1 < len(samples) else samples[i]
         approx.append((a + b) * inv)
         detail.append((a - b) * inv)
-    tail = samples[even_len:]
-    return approx, detail, tail
+    return approx, detail
 
 
-def haar_idwt(approx, detail, tail):
+def haar_idwt_level(approx, detail, out_len):
     inv = 1.0 / math.sqrt(2.0)
     out = []
     for a, d in zip(approx, detail):
         out.append((a + d) * inv)
         out.append((a - d) * inv)
-    out.extend(tail)
-    return out
+    return out[:out_len]
+
+
+def multilevel_haar_dwt(samples, embedded_len):
+    approx = list(samples)
+    details = []
+    sizes = []
+    max_level = max(1, int(math.floor(math.log2(max(2, len(samples) / max(1, embedded_len))))))
+    for _ in range(max_level):
+        sizes.append(len(approx))
+        approx, detail = haar_dwt_level(approx)
+        details.append(detail)
+    return approx, details, sizes
+
+
+def multilevel_haar_idwt(approx, details, sizes):
+    current = list(approx)
+    for detail, size in zip(reversed(details), reversed(sizes)):
+        current = haar_idwt_level(current, detail, size)
+    return current
+
+
+def scale_hidden_signal(hidden, reference):
+    ref_peak = max((abs(x) for x in reference), default=1.0) or 1.0
+    hidden_peak = max((abs(x) for x in hidden), default=1.0) or 1.0
+    scaled = hidden_peak / ref_peak if ref_peak > 0 else 1.0
+    return [x / scaled for x in hidden], scaled
 
 
 def embed(args):
@@ -170,19 +213,25 @@ def embed(args):
     image = read_png_gray(args.secret)
     if os.path.getsize(args.secret) > 0:
         mark("PASS_SECRET_IMAGE_CREATED")
-    approx, detail, tail = haar_dwt([float(x) for x in samples])
-    hidden = inverse_stft_from_image(image, len(detail), params.framerate)
-    strength = args.strength
-    stego_detail = [d + strength * h * 32767.0 for d, h in zip(detail, hidden)]
-    stego = haar_idwt(approx, stego_detail, tail)
+    encrypted_image = permute_image(image, args.key)
+    approx, details, sizes = multilevel_haar_dwt([float(x) for x in samples], len(encrypted_image) * len(encrypted_image[0]))
+    target_detail = list(details[-1])
+    hidden = inverse_stft_from_image(encrypted_image, len(target_detail), params.framerate)
+    overwritten_detail, scaled = scale_hidden_signal(hidden, target_detail)
+    details[-1] = overwritten_detail
+    stego = multilevel_haar_idwt(approx, details, sizes)
     write_wav(args.out, params, stego)
     with open(".dwt_highfreq_embedded", "w", encoding="utf-8") as handle:
-        handle.write(f"detail_coefficients={len(detail)}\nstrength={strength}\n")
+        handle.write(f"detail_coefficients={len(target_detail)}\n")
+        handle.write(f"levels={len(details)}\n")
+        handle.write(f"key={args.key}\n")
+        handle.write(f"scaled={scaled:.6f}\n")
     mark("PASS_DWT_HIGHFREQ_EMBEDDED")
     mark("PASS_STEGO_CREATED")
-    print(f"image_rows={len(image)}")
-    print(f"image_cols={len(image[0]) if image else 0}")
-    print(f"detail_coefficients={len(detail)}")
+    print(f"image_rows={len(encrypted_image)}")
+    print(f"image_cols={len(encrypted_image[0]) if encrypted_image else 0}")
+    print(f"dwt_levels={len(details)}")
+    print(f"detail_coefficients={len(target_detail)}")
     print(f"wrote={args.out}")
 
 
@@ -192,7 +241,7 @@ def main():
     parser.add_argument("--cover", required=True)
     parser.add_argument("--secret", required=True)
     parser.add_argument("--out", required=True)
-    parser.add_argument("--strength", type=float, default=0.018)
+    parser.add_argument("--key", type=int, default=3101)
     args = parser.parse_args()
     embed(args)
 

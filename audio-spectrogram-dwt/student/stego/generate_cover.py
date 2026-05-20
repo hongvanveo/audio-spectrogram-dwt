@@ -6,8 +6,13 @@ import wave
 from array import array
 
 
+def home_path(*parts):
+    base = os.environ.get("HOME") or os.path.expanduser("~")
+    return os.path.join(base, *parts)
+
+
 def mark(token):
-    result = os.path.expanduser("~/.local/result/spectrogram_dwt_check.txt")
+    result = home_path(".local", "result", "spectrogram_dwt_check.txt")
     os.makedirs(os.path.dirname(result), exist_ok=True)
     existing = ""
     if os.path.exists(result):

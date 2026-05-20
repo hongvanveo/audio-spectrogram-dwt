@@ -5,7 +5,12 @@ import struct
 import zlib
 
 
-RESULT = os.path.expanduser("~/.local/result/spectrogram_dwt_check.txt")
+def home_path(*parts):
+    base = os.environ.get("HOME") or os.path.expanduser("~")
+    return os.path.join(base, *parts)
+
+
+RESULT = home_path(".local", "result", "spectrogram_dwt_check.txt")
 
 
 def mark(token):
