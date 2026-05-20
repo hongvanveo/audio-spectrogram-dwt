@@ -5,9 +5,13 @@ ARG labdir
 ARG imagedir
 ENV HOME /home/ubuntu
 USER root
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    alsa-utils \
+    feh \
+    && rm -rf /var/lib/apt/lists/*
 RUN useradd -m -s /bin/bash ubuntu || true
 WORKDIR /home/ubuntu
 ADD $labdir/$lab.tar.gz /home/ubuntu
 RUN chown -R ubuntu:ubuntu /home/ubuntu \
-    && chmod +x /home/ubuntu/stego/*.py \
+    && chmod +x /home/ubuntu/stego/*.py /home/ubuntu/stego/*.sh \
     && printf '\npython3 ~/stego/refresh_status.py >/dev/null 2>&1 || true\nPROMPT_COMMAND="python3 ~/stego/refresh_status.py >/dev/null 2>&1 || true${PROMPT_COMMAND:+;$PROMPT_COMMAND}"\n' >> /home/ubuntu/.bashrc

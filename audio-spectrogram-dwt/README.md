@@ -24,8 +24,11 @@ Luong thuc hanh:
 cd ~/stego
 python3 generate_cover.py --out cover.wav
 python3 generate_secret_image.py --out secret.png
+./view_secret.sh
 nano embed_task.py
 python3 embed_task.py
+./play_cover.sh
+./play_stego.sh
 python3 analyze_audio.py --cover cover.wav --stego stego.wav
 cmp cover.wav stego.wav
 ```
@@ -34,6 +37,7 @@ Checkwork co cac muc:
 
 - `cover_created`
 - `secret_image_created`
+- `secret_image_viewed`
 - `image_processed`
 - `istft_signal_created`
 - `dwt_highfreq_embedded`

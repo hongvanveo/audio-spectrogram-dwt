@@ -54,10 +54,12 @@ Sinh viên cần:
 
 1. Tạo file audio gốc `cover.wav`.
 2. Tạo ảnh bí mật `secret.png`.
-3. Sửa file `embed_task.py`, điền đúng tên file audio gốc và ảnh bí mật.
-4. Chạy chương trình nhúng tin để tạo `stego.wav`.
-5. Kiểm tra `stego.wav` đã được tạo và khác `cover.wav`.
-6. Chạy `checkwork` để kiểm tra kết quả.
+3. Mở trực tiếp `secret.png` để quan sát.
+4. Sửa file `embed_task.py`, điền đúng tên file audio gốc và ảnh bí mật.
+5. Chạy chương trình nhúng tin để tạo `stego.wav`.
+6. Có thể nghe trực tiếp `cover.wav` và `stego.wav`.
+7. Kiểm tra `stego.wav` đã được tạo và khác `cover.wav`.
+8. Chạy `checkwork` để kiểm tra kết quả.
 
 ### Nội dung kỹ thuật
 
@@ -118,6 +120,12 @@ Nếu muốn xem nhanh thông tin file ảnh, có thể dùng:
 
 ```bash
 file secret.png
+```
+
+Để mở trực tiếp ảnh trong lab:
+
+```bash
+./view_secret.sh
 ```
 
 ### Task 3: Sửa code để điền tên file audio, ảnh bí mật và kiểm tra khóa
@@ -192,15 +200,20 @@ cmp cover.wav stego.wav
 
 Nếu hai file khác nhau, điều đó chứng tỏ ảnh bí mật đã được nhúng vào audio.
 
-### Task 6: Nghe thử audio stego
+### Task 6: Nghe trực tiếp audio
 
-Nếu môi trường hỗ trợ phát âm thanh, sinh viên có thể nghe thử:
+Sinh viên có thể nghe trực tiếp audio trong lab bằng các lệnh:
 
 ```bash
-aplay stego.wav
+./play_cover.sh
+./play_stego.sh
 ```
 
-Nếu môi trường không hỗ trợ phát âm thanh, chỉ cần kiểm tra file bằng `ls`, `file` và `analyze_audio.py`.
+Nếu môi trường không phát âm thanh được, sinh viên vẫn có thể dùng kiểm tra tự động:
+
+```bash
+python3 analyze_audio.py --cover cover.wav --stego stego.wav
+```
 
 ### Kiểm tra kết quả
 
@@ -215,6 +228,7 @@ Kết quả đúng cần có:
 ```text
 Y - cover_created
 Y - secret_image_created
+Y - secret_image_viewed
 Y - image_processed
 Y - istft_signal_created
 Y - dwt_highfreq_embedded
@@ -226,6 +240,7 @@ Y - audio_modified
 
 - `cover_created`: đã tạo file audio gốc `cover.wav`.
 - `secret_image_created`: đã tạo file ảnh bí mật `secret.png`.
+- `secret_image_viewed`: đã mở trực tiếp `secret.png` trong lab.
 - `image_processed`: ảnh bí mật đã được đọc, hoán vị bằng khóa và chuẩn hóa để dùng như spectrogram.
 - `istft_signal_created`: đã dùng Inverse STFT để biến spectrogram từ ảnh thành tín hiệu miền thời gian.
 - `dwt_highfreq_embedded`: đã dùng DWT nhiều mức trên audio gốc và ghi đè tín hiệu bí mật vào hệ số chi tiết của mức phân rã cuối.

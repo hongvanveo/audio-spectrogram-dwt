@@ -2,8 +2,12 @@
 from pathlib import Path
 
 
-WORKDIR = Path.home() / "stego"
-RESULT = Path.home() / ".local" / "result" / "spectrogram_dwt_check.txt"
+def home_dir():
+    return Path(__import__("os").environ.get("HOME") or str(Path.home()))
+
+
+WORKDIR = home_dir() / "stego"
+RESULT = home_dir() / ".local" / "result" / "spectrogram_dwt_check.txt"
 
 
 def main():
@@ -23,6 +27,8 @@ def main():
         tokens.add("PASS_STEGO_CREATED")
     if (WORKDIR / ".analysis_done").is_file() and (WORKDIR / ".analysis_done").stat().st_size > 0:
         tokens.add("PASS_AUDIO_MODIFIED")
+    if (WORKDIR / ".secret_image_viewed").is_file() and (WORKDIR / ".secret_image_viewed").stat().st_size > 0:
+        tokens.add("PASS_SECRET_IMAGE_VIEWED")
     RESULT.write_text("\n".join(sorted(tokens)) + ("\n" if tokens else ""), encoding="utf-8")
 
 

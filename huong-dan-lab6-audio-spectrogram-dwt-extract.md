@@ -37,10 +37,12 @@ Sinh viên cần:
 
 1. Kiểm tra sender có `stego.wav` và `secret.key`.
 2. Bật SSH trên receiver.
-3. Gửi `stego.wav` và `secret.key` từ sender sang receiver.
-4. Sửa `extract_task.py` để điền đúng tên file đầu vào.
-5. Chạy chương trình tách ảnh để tạo `recovered_secret.png`.
-6. Chạy `checkwork` để kiểm tra kết quả.
+3. Có thể nghe trực tiếp `stego.wav` ở sender.
+4. Gửi `stego.wav` và `secret.key` từ sender sang receiver.
+5. Sửa `extract_task.py` để điền đúng tên file đầu vào.
+6. Chạy chương trình tách ảnh để tạo `recovered_secret.png`.
+7. Mở trực tiếp `recovered_secret.png`.
+8. Chạy `checkwork` để kiểm tra kết quả.
 
 ## Nội dung kỹ thuật
 
@@ -82,7 +84,15 @@ Trong terminal `receiver`:
 sudo service ssh start
 ```
 
-## Task 3: Gửi file từ sender sang receiver
+## Task 3: Nghe trực tiếp audio stego ở sender
+
+Trong terminal `sender`:
+
+```bash
+./play_stego.sh
+```
+
+## Task 4: Gửi file từ sender sang receiver
 
 Trong terminal `sender`:
 
@@ -97,7 +107,7 @@ cd ~/stego
 ls -l stego.wav secret.key
 ```
 
-## Task 4: Sửa file extract_task.py
+## Task 5: Sửa file extract_task.py
 
 Trong terminal `receiver`:
 
@@ -122,7 +132,7 @@ KEY_FILE = "secret.key"
 
 Lưu file và thoát khỏi `nano`.
 
-## Task 5: Tách ảnh bí mật
+## Task 6: Tách ảnh bí mật
 
 Trong terminal `receiver`:
 
@@ -137,7 +147,13 @@ Nếu chạy đúng, chương trình sẽ tạo file:
 recovered_secret.png
 ```
 
-## Task 6: Kiểm tra kết quả
+Mở trực tiếp ảnh trong terminal `receiver`:
+
+```bash
+./view_recovered.sh
+```
+
+## Task 7: Kiểm tra kết quả
 
 Trên terminal chính của Labtainer:
 
@@ -153,6 +169,7 @@ Y - key_received
 Y - dwt_signal_extracted
 Y - key_permutation_used
 Y - secret_image_recovered
+Y - recovered_image_viewed
 Y - recovered_image_valid
 ```
 
@@ -163,6 +180,7 @@ Y - recovered_image_valid
 - `dwt_signal_extracted`: receiver đã lấy tín hiệu bí mật từ detail coefficients của DWT.
 - `key_permutation_used`: receiver đã dùng key để đảo hoán vị dữ liệu ảnh.
 - `secret_image_recovered`: đã tạo `recovered_secret.png`.
+- `recovered_image_viewed`: đã mở trực tiếp `recovered_secret.png` trong lab.
 - `recovered_image_valid`: ảnh khôi phục đúng với ảnh bí mật ban đầu.
 
 ## Kết thúc bài lab

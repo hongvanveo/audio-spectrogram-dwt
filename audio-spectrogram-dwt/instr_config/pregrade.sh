@@ -61,3 +61,9 @@ if [ -s "$workdir/.analysis_done" ]; then
 else
     fail "AUDIO_MODIFIED" "analysis step not completed"
 fi
+
+if [ -s "$workdir/.secret_image_viewed" ]; then
+    pass "SECRET_IMAGE_VIEWED"
+else
+    fail "SECRET_IMAGE_VIEWED" "secret image has not been viewed"
+fi
