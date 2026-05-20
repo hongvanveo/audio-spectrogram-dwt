@@ -1,0 +1,4 @@
+Tai lieu huong dan bai lab o:
+   file://LAB_DOCS/audio-spectrogram-dwt-guide.txt
+
+Mo file nay bang chuot phai va chon "Open Link".

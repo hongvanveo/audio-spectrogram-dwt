@@ -1,0 +1,70 @@
+LAB 5 - GIAU ANH VAO AUDIO BANG SPECTROGRAM, INVERSE STFT VA DWT
+
+Muc tieu
+-------
+Trong lab nay, sinh vien tao:
+
+  1. cover.wav   - audio goc
+  2. secret.png  - anh bi mat
+  3. stego.wav   - audio da nhung anh bi mat
+
+Quy trinh
+---------
+
+  secret.png
+  -> hoan vi bang key
+  -> xem nhu spectrogram
+  -> Inverse STFT
+  -> tin hieu mien thoi gian
+  -> DWT audio goc
+  -> nhung vao he so tan so cao
+  -> IDWT
+  -> stego.wav
+
+Task 1 - Tao audio cover
+------------------------
+  cd ~/stego
+  python3 generate_cover.py --out cover.wav
+
+Task 2 - Tao anh bi mat
+-----------------------
+  python3 generate_secret_image.py --out secret.png
+  ./view_secret.sh
+
+Task 3 - Dien ten file trong embed_task.py
+------------------------------------------
+  nano embed_task.py
+
+Sua hai dong TODO thanh:
+
+  COVER_FILE = "cover.wav"
+  SECRET_IMAGE = "secret.png"
+
+Task 4 - Nhung anh vao audio
+----------------------------
+  python3 embed_task.py
+
+Task 5 - Kiem tra audio sau nhung
+---------------------------------
+  python3 analyze_audio.py --cover cover.wav --stego stego.wav
+  ./play_cover.sh
+  ./play_stego.sh
+
+Task 6 - Cham diem
+------------------
+  checkwork
+
+Ket qua mong doi:
+
+  Y - cover_created
+  Y - secret_image_created
+  Y - image_processed
+  Y - istft_signal_created
+  Y - dwt_highfreq_embedded
+  Y - stego_created
+  Y - audio_modified
+  Y - secret_image_viewed
+
+Ket thuc lab:
+
+  stoplab
