@@ -27,7 +27,9 @@ imodule https://raw.githubusercontent.com/hongvanveo/audio-spectrogram-dwt/main/
 labtainer -r audio-spectrogram-dwt-extract
 ```
 
-Khi được hỏi email, sinh viên nhập mã sinh viên của mình.
+Khi được hỏi email, sinh viên nhập mã sinh viên của mình. Hệ thống sẽ tự chuẩn hoá mã đó sang dạng IN HOA và ghi nhớ ID gần nhất.
+
+`checkwork` chỉ hiển thị và chấm kết quả của đúng ID đang được dùng cho bài lab hiện tại, không trộn với các file `.lab` cũ của ID khác.
 
 ## Mục tiêu bài lab
 
