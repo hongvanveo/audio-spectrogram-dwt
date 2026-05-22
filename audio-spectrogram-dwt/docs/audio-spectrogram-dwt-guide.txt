@@ -21,30 +21,23 @@ Quy trinh ky thuat
   -> IDWT
   -> stego.wav
 
-Sau moi phan, co the chay checkwork de xem muc tuong ung chuyen sang Y.
+Sinh vien chi can kiem tra lenh cua tung task tao dung file dau ra. Khong can chay checkwork sau tung task; checkwork duoc chay mot lan o cuoi bai.
 
-Phan 1 - Tao audio cover
+Task 1 - Tao audio cover
 ------------------------
   cd ~/stego
   python3 generate_cover.py --out cover.wav
-  checkwork
+  ls -l cover.wav
 
-Muc can Y:
-  cover_created
-
-Phan 2 - Tao anh bi mat va mo xem
+Task 2 - Tao anh bi mat va mo xem
 ---------------------------------
   python3 generate_secret_image.py --out secret.png
   ./view_secret.sh
-  checkwork
-
-Muc can Y:
-  secret_image_created
-  secret_image_viewed
+  ls -l secret.png
 
 Neu giao vien cung cap san anh, co the copy anh do vao ~/stego/secret.png thay cho lenh generate_secret_image.py.
 
-Phan 3 - Xu ly anh thanh ma tran spectrogram
+Task 3 - Xu ly anh thanh ma tran spectrogram
 --------------------------------------------
   nano process_image.py
 
@@ -56,15 +49,9 @@ Sua cac dong TODO thanh:
 Chay:
 
   python3 process_image.py
-  checkwork
+  ls -l processed_image.json
 
-Ket qua tao ra:
-  processed_image.json
-
-Muc can Y:
-  image_processed
-
-Phan 4 - Inverse STFT tao tin hieu mien thoi gian
+Task 4 - Inverse STFT tao tin hieu mien thoi gian
 -------------------------------------------------
   nano istft.py
 
@@ -76,15 +63,9 @@ Sua cac dong TODO thanh:
 Chay:
 
   python3 istft.py
-  checkwork
+  ls -l hidden_signal.json
 
-Ket qua tao ra:
-  hidden_signal.json
-
-Muc can Y:
-  istft_signal_created
-
-Phan 5 - Nhung tin hieu vao vung tan so cao cua audio bang DWT
+Task 5 - Nhung tin hieu vao vung tan so cao cua audio bang DWT
 --------------------------------------------------------------
   nano dwt_embed.py
 
@@ -96,27 +77,18 @@ Sua cac dong TODO thanh:
 Chay:
 
   python3 dwt_embed.py
-  checkwork
+  ls -l stego.wav
 
-Ket qua tao ra:
-  stego.wav
-
-Muc can Y:
-  dwt_highfreq_embedded
-  stego_created
-
-Phan 6 - Nghe va kiem tra audio
+Task 6 - Nghe va kiem tra audio
 -------------------------------
   ./play_cover.sh
   ./play_stego.sh
   python3 analyze_audio.py --cover cover.wav --stego stego.wav
-  checkwork
-
-Muc can Y:
-  audio_modified
 
 Ket qua checkwork cuoi cung
 ---------------------------
+  checkwork
+
   Y - cover_created
   Y - secret_image_created
   Y - secret_image_viewed

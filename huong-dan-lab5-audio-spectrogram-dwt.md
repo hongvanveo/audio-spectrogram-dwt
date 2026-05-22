@@ -27,40 +27,31 @@ secret.png
 -> stego.wav
 ```
 
-Moi phan yeu cau sua file code de dien ten file dau vao roi moi chay. Sau moi phan, chay `checkwork` de thay muc tuong ung chuyen sang `Y`.
+Moi task yeu cau sua file code de dien ten file dau vao roi moi chay. Sinh vien chi can kiem tra lenh tao dung file dau ra cua task do; khong can chay `checkwork` sau tung task.
 
-## Phan 1: Tao audio goc
+## Task 1: Tao audio goc
 
 ```bash
 cd ~/stego
 python3 generate_cover.py --out cover.wav
-checkwork
+ls -l cover.wav
 ```
 
-Can thay:
+Ket qua can co: file `cover.wav`.
 
-```text
-Y - cover_created
-```
-
-## Phan 2: Tao hoac chuan bi anh bi mat
+## Task 2: Tao hoac chuan bi anh bi mat
 
 ```bash
 python3 generate_secret_image.py --out secret.png
 ./view_secret.sh
-checkwork
+ls -l secret.png
 ```
 
 Neu da co anh san, copy anh do thanh `~/stego/secret.png` thay cho lenh generate. Anh se mo bang cua so xem anh binh thuong.
 
-Can thay:
+Ket qua can co: file `secret.png` va cua so xem anh da mo duoc.
 
-```text
-Y - secret_image_created
-Y - secret_image_viewed
-```
-
-## Phan 3: Xu ly anh thanh ma tran spectrogram
+## Task 3: Xu ly anh thanh ma tran spectrogram
 
 Mo file:
 
@@ -79,18 +70,12 @@ Chay:
 
 ```bash
 python3 process_image.py
-checkwork
+ls -l processed_image.json
 ```
 
 Script nay doc anh, chuyen ve gray-scale, hoan vi pixel bang key va luu `processed_image.json`.
 
-Can thay:
-
-```text
-Y - image_processed
-```
-
-## Phan 4: Tao tin hieu mien thoi gian bang Inverse STFT
+## Task 4: Tao tin hieu mien thoi gian bang Inverse STFT
 
 Mo file:
 
@@ -109,18 +94,12 @@ Chay:
 
 ```bash
 python3 istft.py
-checkwork
+ls -l hidden_signal.json
 ```
 
 Script nay xem `processed_image.json` nhu spectrogram va tao `hidden_signal.json`.
 
-Can thay:
-
-```text
-Y - istft_signal_created
-```
-
-## Phan 5: Nhung tin hieu vao audio bang DWT
+## Task 5: Nhung tin hieu vao audio bang DWT
 
 Mo file:
 
@@ -139,34 +118,30 @@ Chay:
 
 ```bash
 python3 dwt_embed.py
-checkwork
+ls -l stego.wav
 ```
 
 Script nay phan ra `cover.wav` bang DWT, ghi tin hieu bi mat vao he so chi tiet tan so cao va IDWT de tao `stego.wav`.
 
-Can thay:
-
-```text
-Y - dwt_highfreq_embedded
-Y - stego_created
-```
-
-## Phan 6: Nghe va kiem tra audio
+## Task 6: Nghe va kiem tra audio
 
 ```bash
 ./play_cover.sh
 ./play_stego.sh
 python3 analyze_audio.py --cover cover.wav --stego stego.wav
+```
+
+Lenh phan tich can in ra so mau audio bi thay doi va gia tri `snr_db`.
+
+## Ket qua cuoi cung
+
+Sau khi lam xong tat ca task, chay:
+
+```bash
 checkwork
 ```
 
-Can thay:
-
-```text
-Y - audio_modified
-```
-
-## Ket qua cuoi cung
+Ket qua dung:
 
 ```text
 Y - cover_created
