@@ -15,9 +15,9 @@ Quy trinh ky thuat
 ------------------
 
   secret.png
-  -> process_image_task.py: hoan vi bang key, tao processed_image.json
-  -> istft_task.py: xem processed_image.json nhu spectrogram, tao hidden_signal.json
-  -> dwt_embed_task.py: DWT cover.wav, nhung hidden_signal vao detail coefficients
+  -> process_image.py: hoan vi bang key, tao processed_image.json
+  -> istft.py: xem processed_image.json nhu spectrogram, tao hidden_signal.json
+  -> dwt_embed.py: DWT cover.wav, nhung hidden_signal vao detail coefficients
   -> IDWT
   -> stego.wav
 
@@ -46,7 +46,7 @@ Neu giao vien cung cap san anh, co the copy anh do vao ~/stego/secret.png thay c
 
 Task 3 - Xu ly anh thanh ma tran spectrogram
 --------------------------------------------
-  nano process_image_task.py
+  nano process_image.py
 
 Sua cac dong TODO thanh:
 
@@ -55,7 +55,7 @@ Sua cac dong TODO thanh:
 
 Chay:
 
-  python3 process_image_task.py
+  python3 process_image.py
   checkwork
 
 Ket qua tao ra:
@@ -66,7 +66,7 @@ Muc can Y:
 
 Task 4 - Inverse STFT tao tin hieu mien thoi gian
 -------------------------------------------------
-  nano istft_task.py
+  nano istft.py
 
 Sua cac dong TODO thanh:
 
@@ -75,7 +75,7 @@ Sua cac dong TODO thanh:
 
 Chay:
 
-  python3 istft_task.py
+  python3 istft.py
   checkwork
 
 Ket qua tao ra:
@@ -86,7 +86,7 @@ Muc can Y:
 
 Task 5 - Nhung tin hieu vao vung tan so cao cua audio bang DWT
 --------------------------------------------------------------
-  nano dwt_embed_task.py
+  nano dwt_embed.py
 
 Sua cac dong TODO thanh:
 
@@ -95,7 +95,7 @@ Sua cac dong TODO thanh:
 
 Chay:
 
-  python3 dwt_embed_task.py
+  python3 dwt_embed.py
   checkwork
 
 Ket qua tao ra:

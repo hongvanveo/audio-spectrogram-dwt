@@ -13,12 +13,12 @@ def get_inputs():
     # TODO: dien ten file audio cover dung de tinh kich thuoc he so DWT.
     COVER_FILE = "TODO_COVER_FILENAME"
 
-    # TODO: dien file ma tran anh da xu ly tu process_image_task.py.
+    # TODO: dien file ma tran anh da xu ly tu process_image.py.
     PROCESSED_IMAGE = "TODO_PROCESSED_IMAGE_FILENAME"
 
     OUTPUT_SIGNAL = "hidden_signal.json"
     if "TODO" in COVER_FILE or "TODO" in PROCESSED_IMAGE:
-        raise SystemExit("Hay mo istft_task.py va dien cover.wav va processed_image.json truoc khi chay.")
+        raise SystemExit("Hay mo istft.py va dien cover.wav va processed_image.json truoc khi chay.")
     return COVER_FILE, PROCESSED_IMAGE, OUTPUT_SIGNAL
 
 

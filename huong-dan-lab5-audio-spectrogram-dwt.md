@@ -20,9 +20,9 @@ Khi duoc hoi email/student id, nhap ma sinh vien. Lab se chuan hoa ID sang chu I
 
 ```text
 secret.png
--> process_image_task.py: doc anh, hoan vi bang key, tao processed_image.json
--> istft_task.py: xem ma tran anh nhu spectrogram, tao hidden_signal.json
--> dwt_embed_task.py: DWT cover.wav, ghi hidden_signal vao detail coefficients
+-> process_image.py: doc anh, hoan vi bang key, tao processed_image.json
+-> istft.py: xem ma tran anh nhu spectrogram, tao hidden_signal.json
+-> dwt_embed.py: DWT cover.wav, ghi hidden_signal vao detail coefficients
 -> IDWT
 -> stego.wav
 ```
@@ -65,7 +65,7 @@ Y - secret_image_viewed
 Mo file:
 
 ```bash
-nano process_image_task.py
+nano process_image.py
 ```
 
 Sua TODO:
@@ -78,7 +78,7 @@ PERMUTATION_KEY = 3101
 Chay:
 
 ```bash
-python3 process_image_task.py
+python3 process_image.py
 checkwork
 ```
 
@@ -95,7 +95,7 @@ Y - image_processed
 Mo file:
 
 ```bash
-nano istft_task.py
+nano istft.py
 ```
 
 Sua TODO:
@@ -108,7 +108,7 @@ PROCESSED_IMAGE = "processed_image.json"
 Chay:
 
 ```bash
-python3 istft_task.py
+python3 istft.py
 checkwork
 ```
 
@@ -125,7 +125,7 @@ Y - istft_signal_created
 Mo file:
 
 ```bash
-nano dwt_embed_task.py
+nano dwt_embed.py
 ```
 
 Sua TODO:
@@ -138,7 +138,7 @@ HIDDEN_SIGNAL = "hidden_signal.json"
 Chay:
 
 ```bash
-python3 dwt_embed_task.py
+python3 dwt_embed.py
 checkwork
 ```
 

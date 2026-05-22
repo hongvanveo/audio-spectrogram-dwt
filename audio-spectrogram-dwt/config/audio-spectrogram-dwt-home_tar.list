@@ -1,7 +1,7 @@
 stego/spectrogram_dwt_stego.py
-stego/process_image_task.py
-stego/istft_task.py
-stego/dwt_embed_task.py
+stego/process_image.py
+stego/istft.py
+stego/dwt_embed.py
 stego/generate_cover.py
 stego/generate_secret_image.py
 stego/analyze_audio.py

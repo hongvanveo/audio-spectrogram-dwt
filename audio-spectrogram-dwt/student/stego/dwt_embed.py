@@ -15,12 +15,12 @@ def get_inputs():
     # TODO: dien ten file audio cover.
     COVER_FILE = "TODO_COVER_FILENAME"
 
-    # TODO: dien file tin hieu mien thoi gian tu istft_task.py.
+    # TODO: dien file tin hieu mien thoi gian tu istft.py.
     HIDDEN_SIGNAL = "TODO_HIDDEN_SIGNAL_FILENAME"
 
     OUTPUT_AUDIO = "stego.wav"
     if "TODO" in COVER_FILE or "TODO" in HIDDEN_SIGNAL:
-        raise SystemExit("Hay mo dwt_embed_task.py va dien cover.wav va hidden_signal.json truoc khi chay.")
+        raise SystemExit("Hay mo dwt_embed.py va dien cover.wav va hidden_signal.json truoc khi chay.")
     return COVER_FILE, HIDDEN_SIGNAL, OUTPUT_AUDIO
 
 

@@ -14,7 +14,7 @@ def get_inputs():
 
     OUTPUT_MATRIX = "processed_image.json"
     if "TODO" in SECRET_IMAGE:
-        raise SystemExit("Hay mo process_image_task.py va dien ten secret.png truoc khi chay.")
+        raise SystemExit("Hay mo process_image.py va dien ten secret.png truoc khi chay.")
     return SECRET_IMAGE, PERMUTATION_KEY, OUTPUT_MATRIX
 
 

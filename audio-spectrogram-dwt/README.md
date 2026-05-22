@@ -24,12 +24,12 @@ cd ~/stego
 python3 generate_cover.py --out cover.wav
 python3 generate_secret_image.py --out secret.png
 ./view_secret.sh
-nano process_image_task.py
-python3 process_image_task.py
-nano istft_task.py
-python3 istft_task.py
-nano dwt_embed_task.py
-python3 dwt_embed_task.py
+nano process_image.py
+python3 process_image.py
+nano istft.py
+python3 istft.py
+nano dwt_embed.py
+python3 dwt_embed.py
 ./play_cover.sh
 ./play_stego.sh
 python3 analyze_audio.py --cover cover.wav --stego stego.wav
