@@ -7,4 +7,4 @@ if [ ! -s secret.png ]; then
 fi
 printf 'opened\n' > .secret_image_viewed
 python3 refresh_status.py >/dev/null 2>&1 || true
-exec feh --auto-zoom secret.png
+exec feh --geometry 1200x900 --zoom 800 secret.png
