@@ -21,9 +21,9 @@ Quy trinh ky thuat
   -> IDWT
   -> stego.wav
 
-Sau moi task, co the chay checkwork de xem muc tuong ung chuyen sang Y.
+Sau moi phan, co the chay checkwork de xem muc tuong ung chuyen sang Y.
 
-Task 1 - Tao audio cover
+Phan 1 - Tao audio cover
 ------------------------
   cd ~/stego
   python3 generate_cover.py --out cover.wav
@@ -32,7 +32,7 @@ Task 1 - Tao audio cover
 Muc can Y:
   cover_created
 
-Task 2 - Tao anh bi mat va mo xem
+Phan 2 - Tao anh bi mat va mo xem
 ---------------------------------
   python3 generate_secret_image.py --out secret.png
   ./view_secret.sh
@@ -44,7 +44,7 @@ Muc can Y:
 
 Neu giao vien cung cap san anh, co the copy anh do vao ~/stego/secret.png thay cho lenh generate_secret_image.py.
 
-Task 3 - Xu ly anh thanh ma tran spectrogram
+Phan 3 - Xu ly anh thanh ma tran spectrogram
 --------------------------------------------
   nano process_image.py
 
@@ -64,7 +64,7 @@ Ket qua tao ra:
 Muc can Y:
   image_processed
 
-Task 4 - Inverse STFT tao tin hieu mien thoi gian
+Phan 4 - Inverse STFT tao tin hieu mien thoi gian
 -------------------------------------------------
   nano istft.py
 
@@ -84,7 +84,7 @@ Ket qua tao ra:
 Muc can Y:
   istft_signal_created
 
-Task 5 - Nhung tin hieu vao vung tan so cao cua audio bang DWT
+Phan 5 - Nhung tin hieu vao vung tan so cao cua audio bang DWT
 --------------------------------------------------------------
   nano dwt_embed.py
 
@@ -105,7 +105,7 @@ Muc can Y:
   dwt_highfreq_embedded
   stego_created
 
-Task 6 - Nghe va kiem tra audio
+Phan 6 - Nghe va kiem tra audio
 -------------------------------
   ./play_cover.sh
   ./play_stego.sh

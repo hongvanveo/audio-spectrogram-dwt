@@ -27,9 +27,9 @@ secret.png
 -> stego.wav
 ```
 
-Moi task yeu cau sua file code de dien ten file dau vao roi moi chay. Sau moi task, chay `checkwork` de thay muc tuong ung chuyen sang `Y`.
+Moi phan yeu cau sua file code de dien ten file dau vao roi moi chay. Sau moi phan, chay `checkwork` de thay muc tuong ung chuyen sang `Y`.
 
-## Task 1: Tao audio goc
+## Phan 1: Tao audio goc
 
 ```bash
 cd ~/stego
@@ -43,7 +43,7 @@ Can thay:
 Y - cover_created
 ```
 
-## Task 2: Tao hoac chuan bi anh bi mat
+## Phan 2: Tao hoac chuan bi anh bi mat
 
 ```bash
 python3 generate_secret_image.py --out secret.png
@@ -60,7 +60,7 @@ Y - secret_image_created
 Y - secret_image_viewed
 ```
 
-## Task 3: Xu ly anh thanh ma tran spectrogram
+## Phan 3: Xu ly anh thanh ma tran spectrogram
 
 Mo file:
 
@@ -90,7 +90,7 @@ Can thay:
 Y - image_processed
 ```
 
-## Task 4: Tao tin hieu mien thoi gian bang Inverse STFT
+## Phan 4: Tao tin hieu mien thoi gian bang Inverse STFT
 
 Mo file:
 
@@ -120,7 +120,7 @@ Can thay:
 Y - istft_signal_created
 ```
 
-## Task 5: Nhung tin hieu vao audio bang DWT
+## Phan 5: Nhung tin hieu vao audio bang DWT
 
 Mo file:
 
@@ -151,7 +151,7 @@ Y - dwt_highfreq_embedded
 Y - stego_created
 ```
 
-## Task 6: Nghe va kiem tra audio
+## Phan 6: Nghe va kiem tra audio
 
 ```bash
 ./play_cover.sh
