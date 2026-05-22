@@ -10,15 +10,15 @@ from spectrogram_dwt_stego import (
 
 
 def get_inputs():
-    # TODO: dien ten file audio cover dung de tinh kich thuoc he so DWT.
-    COVER_FILE = "TODO_COVER_FILENAME"
+    # Dien ten file audio cover dung de tinh kich thuoc he so DWT vao chuoi rong ben duoi.
+    COVER_FILE = ""
 
-    # TODO: dien file ma tran anh da xu ly tu process_image.py.
-    PROCESSED_IMAGE = "TODO_PROCESSED_IMAGE_FILENAME"
+    # Dien file ma tran anh da xu ly tu process_image.py vao chuoi rong ben duoi.
+    PROCESSED_IMAGE = ""
 
     OUTPUT_SIGNAL = "hidden_signal.json"
-    if "TODO" in COVER_FILE or "TODO" in PROCESSED_IMAGE:
-        raise SystemExit("Hay mo istft.py va dien cover.wav va processed_image.json truoc khi chay.")
+    if not COVER_FILE.strip() or not PROCESSED_IMAGE.strip():
+        raise SystemExit("Hay mo istft.py va dien cover.wav va processed_image.json vao cac chuoi rong truoc khi chay.")
     return COVER_FILE, PROCESSED_IMAGE, OUTPUT_SIGNAL
 
 

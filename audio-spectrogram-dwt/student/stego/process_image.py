@@ -6,15 +6,15 @@ from spectrogram_dwt_stego import mark, permute_image, read_png_gray
 
 
 def get_inputs():
-    # TODO: dien ten file anh bi mat can xu ly.
-    SECRET_IMAGE = "TODO_SECRET_IMAGE_FILENAME"
+    # Dien ten file anh bi mat can xu ly vao chuoi rong ben duoi.
+    SECRET_IMAGE = ""
 
-    # TODO: dien khoa dung de hoan vi anh truoc khi nhung.
+    # Dien khoa dung de hoan vi anh truoc khi nhung.
     PERMUTATION_KEY = 3101
 
     OUTPUT_MATRIX = "processed_image.json"
-    if "TODO" in SECRET_IMAGE:
-        raise SystemExit("Hay mo process_image.py va dien ten secret.png truoc khi chay.")
+    if not SECRET_IMAGE.strip():
+        raise SystemExit("Hay mo process_image.py va dien ten secret.png vao chuoi rong truoc khi chay.")
     return SECRET_IMAGE, PERMUTATION_KEY, OUTPUT_MATRIX
 
 

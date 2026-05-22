@@ -12,15 +12,15 @@ from spectrogram_dwt_stego import (
 
 
 def get_inputs():
-    # TODO: dien ten file audio cover.
-    COVER_FILE = "TODO_COVER_FILENAME"
+    # Dien ten file audio cover vao chuoi rong ben duoi.
+    COVER_FILE = ""
 
-    # TODO: dien file tin hieu mien thoi gian tu istft.py.
-    HIDDEN_SIGNAL = "TODO_HIDDEN_SIGNAL_FILENAME"
+    # Dien file tin hieu mien thoi gian tu istft.py vao chuoi rong ben duoi.
+    HIDDEN_SIGNAL = ""
 
     OUTPUT_AUDIO = "stego.wav"
-    if "TODO" in COVER_FILE or "TODO" in HIDDEN_SIGNAL:
-        raise SystemExit("Hay mo dwt_embed.py va dien cover.wav va hidden_signal.json truoc khi chay.")
+    if not COVER_FILE.strip() or not HIDDEN_SIGNAL.strip():
+        raise SystemExit("Hay mo dwt_embed.py va dien cover.wav va hidden_signal.json vao cac chuoi rong truoc khi chay.")
     return COVER_FILE, HIDDEN_SIGNAL, OUTPUT_AUDIO
 
 

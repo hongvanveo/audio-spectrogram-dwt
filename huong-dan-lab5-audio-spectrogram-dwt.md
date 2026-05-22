@@ -59,7 +59,7 @@ Mo file:
 nano process_image.py
 ```
 
-Sua TODO:
+Sua cac chuoi rong:
 
 ```python
 SECRET_IMAGE = "secret.png"
@@ -83,7 +83,7 @@ Mo file:
 nano istft.py
 ```
 
-Sua TODO:
+Sua cac chuoi rong:
 
 ```python
 COVER_FILE = "cover.wav"
@@ -107,7 +107,7 @@ Mo file:
 nano dwt_embed.py
 ```
 
-Sua TODO:
+Sua cac chuoi rong:
 
 ```python
 COVER_FILE = "cover.wav"

@@ -41,7 +41,7 @@ Task 3 - Xu ly anh thanh ma tran spectrogram
 --------------------------------------------
   nano process_image.py
 
-Sua cac dong TODO thanh:
+Sua cac chuoi rong thanh:
 
   SECRET_IMAGE = "secret.png"
   PERMUTATION_KEY = 3101
@@ -55,7 +55,7 @@ Task 4 - Inverse STFT tao tin hieu mien thoi gian
 -------------------------------------------------
   nano istft.py
 
-Sua cac dong TODO thanh:
+Sua cac chuoi rong thanh:
 
   COVER_FILE = "cover.wav"
   PROCESSED_IMAGE = "processed_image.json"
@@ -69,7 +69,7 @@ Task 5 - Nhung tin hieu vao vung tan so cao cua audio bang DWT
 --------------------------------------------------------------
   nano dwt_embed.py
 
-Sua cac dong TODO thanh:
+Sua cac chuoi rong thanh:
 
   COVER_FILE = "cover.wav"
   HIDDEN_SIGNAL = "hidden_signal.json"
