@@ -7,7 +7,9 @@ ENV HOME /home/ubuntu
 USER root
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     alsa-utils \
+    libasound2-plugins \
     feh \
+    pulseaudio-utils \
     && rm -rf /var/lib/apt/lists/*
 RUN useradd -m -s /bin/bash ubuntu || true
 WORKDIR /home/ubuntu
