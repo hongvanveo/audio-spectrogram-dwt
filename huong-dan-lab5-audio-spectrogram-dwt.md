@@ -1,229 +1,172 @@
-# Hướng dẫn thực hành Lab 5: audio-spectrogram-dwt
+# Huong dan thuc hanh Lab 5: audio-spectrogram-dwt
 
-Tài liệu này áp dụng cho:
+Lab 5 dung mot container `student`. Sinh vien tao audio goc, chuan bi anh bi mat, xu ly anh thanh spectrogram, dung Inverse STFT tao tin hieu mien thoi gian, sau do nhung tin hieu nay vao he so tan so cao cua audio bang DWT.
 
-- Lab 5: `audio-spectrogram-dwt`
-
-Lưu ý chung:
-
-- Bài lab dùng một container duy nhất.
-- Sinh viên tạo audio gốc `cover.wav`, tạo ảnh bí mật `secret.png`, sau đó nhúng ảnh vào audio.
-- Ảnh bí mật được hoán vị ngẫu nhiên bằng một khóa chia sẻ, sau đó được xem như một spectrogram và dùng Inverse STFT để biến thành tín hiệu miền thời gian.
-- Audio gốc được phân rã bằng DWT nhiều mức, rồi tín hiệu bí mật được ghi đè trực tiếp vào nhóm hệ số chi tiết ở mức phân rã cuối.
-- Sau khi nhúng, chương trình dùng IDWT để tạo audio stego `stego.wav`.
-- Nếu sinh viên muốn làm lại từ đầu, dùng:
-
-```bash
-labtainer -r audio-spectrogram-dwt
-```
-
-## Lab 5: audio-spectrogram-dwt
-
-### Tải bài lab
+## Tai bai lab
 
 ```bash
 imodule https://github.com/hongvanveo/audio-spectrogram-dwt/raw/refs/heads/main/imodule_audio-spectrogram-dwt.tar
 ```
 
-### Khởi động bài lab
-
-Vào terminal, gõ:
+## Khoi dong
 
 ```bash
 labtainer -r audio-spectrogram-dwt
 ```
 
-Chú ý: sinh viên sử dụng mã sinh viên của mình để nhập thông tin email/người thực hiện bài lab khi có yêu cầu. Hệ thống sẽ tự chuẩn hoá mã đó sang dạng IN HOA và ghi nhớ ID gần nhất.
+Khi duoc hoi email/student id, nhap ma sinh vien. Lab se chuan hoa ID sang chu IN HOA va checkwork chi cham ket qua cua ID dang dung.
 
-`checkwork` chỉ hiển thị và chấm kết quả của đúng ID đang được dùng cho bài lab hiện tại, không trộn với các file `.lab` cũ của ID khác.
-
-Sau khi khởi động xong, trong thư mục `~/stego` có các file hỗ trợ thực hành, ví dụ:
+## Quy trinh
 
 ```text
-generate_cover.py
-generate_secret_image.py
-spectrogram_dwt_stego.py
-embed_task.py
-analyze_audio.py
-refresh_status.py
+secret.png
+-> process_image_task.py: doc anh, hoan vi bang key, tao processed_image.json
+-> istft_task.py: xem ma tran anh nhu spectrogram, tao hidden_signal.json
+-> dwt_embed_task.py: DWT cover.wav, ghi hidden_signal vao detail coefficients
+-> IDWT
+-> stego.wav
 ```
 
-### Mục tiêu bài lab
+Moi task yeu cau sua file code de dien ten file dau vao roi moi chay. Sau moi task, chay `checkwork` de thay muc tuong ung chuyen sang `Y`.
 
-Sinh viên cần:
-
-1. Tạo file audio gốc `cover.wav`.
-2. Tạo ảnh bí mật `secret.png`.
-3. Mở trực tiếp `secret.png` để quan sát.
-4. Sửa file `embed_task.py`, điền đúng tên file audio gốc và ảnh bí mật.
-5. Chạy chương trình nhúng tin để tạo `stego.wav`.
-6. Có thể nghe trực tiếp `cover.wav` và `stego.wav`.
-7. Kiểm tra `stego.wav` đã được tạo và khác `cover.wav`.
-8. Chạy `checkwork` để kiểm tra kết quả.
-
-### Nội dung kỹ thuật
-
-Quy trình nhúng tin của bài lab:
-
-```text
-Ảnh bí mật
-→ hoán vị ngẫu nhiên bằng key
-→ xem như spectrogram
-→ Inverse STFT
-→ tín hiệu miền thời gian
-→ DWT audio gốc
-→ nhúng vào hệ số tần số cao
-→ IDWT
-→ audio stego
-```
-
-Ý nghĩa các bước:
-
-- `secret.png`: ảnh bí mật cần nhúng.
-- Hoán vị bằng key: trộn vị trí các điểm ảnh bằng khóa dùng chung giữa bên gửi và bên nhận.
-- Spectrogram: biểu diễn ảnh như một ma trận biên độ tần số-thời gian.
-- Inverse STFT: biến spectrogram thành tín hiệu miền thời gian.
-- DWT nhiều mức: phân rã audio gốc thành hệ số xấp xỉ và các hệ số chi tiết qua nhiều mức.
-- Ghi đè hệ số chi tiết: dùng tín hiệu bí mật để thay trực tiếp hệ số chi tiết ở mức phân rã cuối.
-- IDWT: tái tạo lại audio sau khi đã nhúng tin.
-
-### Task 1: Tạo file audio gốc
-
-Trong terminal của lab, gõ:
+## Task 1: Tao audio goc
 
 ```bash
 cd ~/stego
 python3 generate_cover.py --out cover.wav
+checkwork
 ```
 
-Kiểm tra file đã được tạo:
+Can thay:
 
-```bash
-ls -l cover.wav
+```text
+Y - cover_created
 ```
 
-### Task 2: Tạo ảnh bí mật
-
-Trong terminal của lab, gõ:
+## Task 2: Tao hoac chuan bi anh bi mat
 
 ```bash
 python3 generate_secret_image.py --out secret.png
-```
-
-Kiểm tra file ảnh đã được tạo:
-
-```bash
-ls -l secret.png
-```
-
-Nếu muốn xem nhanh thông tin file ảnh, có thể dùng:
-
-```bash
-file secret.png
-```
-
-Để mở trực tiếp ảnh trong lab:
-
-```bash
 ./view_secret.sh
+checkwork
 ```
 
-### Task 3: Sửa code để điền tên file audio, ảnh bí mật và kiểm tra khóa
+Neu da co anh san, copy anh do thanh `~/stego/secret.png` thay cho lenh generate. Anh se mo bang cua so xem anh binh thuong.
 
-Mở file `embed_task.py`:
+Can thay:
+
+```text
+Y - secret_image_created
+Y - secret_image_viewed
+```
+
+## Task 3: Xu ly anh thanh ma tran spectrogram
+
+Mo file:
 
 ```bash
-nano embed_task.py
+nano process_image_task.py
 ```
 
-Tìm các dòng TODO:
+Sua TODO:
 
 ```python
-COVER_FILE = "TODO_COVER_FILENAME"
-SECRET_IMAGE = "TODO_SECRET_IMAGE_FILENAME"
-```
-
-Sửa thành:
-
-```python
-COVER_FILE = "cover.wav"
 SECRET_IMAGE = "secret.png"
-```
-
-Trong file cũng có sẵn:
-
-```python
 PERMUTATION_KEY = 3101
 ```
 
-Sinh viên giữ nguyên khóa này để dùng cho bước hoán vị ảnh trước khi nhúng.
-
-Lưu file và thoát khỏi `nano`.
-
-### Task 4: Chạy chương trình nhúng tin
-
-Trong terminal của lab, gõ:
+Chay:
 
 ```bash
-python3 embed_task.py
+python3 process_image_task.py
+checkwork
 ```
 
-Lệnh này sẽ gọi `spectrogram_dwt_stego.py` để:
+Script nay doc anh, chuyen ve gray-scale, hoan vi pixel bang key va luu `processed_image.json`.
 
-1. Đọc ảnh `secret.png`.
-2. Hoán vị ảnh bằng khóa chia sẻ.
-3. Chuẩn hóa ảnh thành ma trận spectrogram.
-4. Dùng Inverse STFT để tạo tín hiệu miền thời gian từ ảnh.
-5. Dùng DWT nhiều mức để tách `cover.wav` thành hệ số xấp xỉ và các hệ số chi tiết.
-6. Ghi đè hệ số chi tiết ở mức cuối bằng tín hiệu bí mật đã scale.
-7. Dùng IDWT để tạo file `stego.wav`.
+Can thay:
 
-Kiểm tra file kết quả:
+```text
+Y - image_processed
+```
+
+## Task 4: Tao tin hieu mien thoi gian bang Inverse STFT
+
+Mo file:
 
 ```bash
-ls -l stego.wav
+nano istft_task.py
 ```
 
-### Task 5: Kiểm tra sự thay đổi giữa cover và stego
+Sua TODO:
 
-Gõ lệnh:
+```python
+COVER_FILE = "cover.wav"
+PROCESSED_IMAGE = "processed_image.json"
+```
+
+Chay:
 
 ```bash
-python3 analyze_audio.py --cover cover.wav --stego stego.wav
+python3 istft_task.py
+checkwork
 ```
 
-Có thể kiểm tra thêm bằng lệnh:
+Script nay xem `processed_image.json` nhu spectrogram va tao `hidden_signal.json`.
+
+Can thay:
+
+```text
+Y - istft_signal_created
+```
+
+## Task 5: Nhung tin hieu vao audio bang DWT
+
+Mo file:
 
 ```bash
-cmp cover.wav stego.wav
+nano dwt_embed_task.py
 ```
 
-Nếu hai file khác nhau, điều đó chứng tỏ ảnh bí mật đã được nhúng vào audio.
+Sua TODO:
 
-### Task 6: Nghe trực tiếp audio
+```python
+COVER_FILE = "cover.wav"
+HIDDEN_SIGNAL = "hidden_signal.json"
+```
 
-Sinh viên có thể nghe trực tiếp audio trong lab bằng các lệnh:
+Chay:
+
+```bash
+python3 dwt_embed_task.py
+checkwork
+```
+
+Script nay phan ra `cover.wav` bang DWT, ghi tin hieu bi mat vao he so chi tiet tan so cao va IDWT de tao `stego.wav`.
+
+Can thay:
+
+```text
+Y - dwt_highfreq_embedded
+Y - stego_created
+```
+
+## Task 6: Nghe va kiem tra audio
 
 ```bash
 ./play_cover.sh
 ./play_stego.sh
-```
-
-Nếu môi trường không phát âm thanh được, sinh viên vẫn có thể dùng kiểm tra tự động:
-
-```bash
 python3 analyze_audio.py --cover cover.wav --stego stego.wav
-```
-
-### Kiểm tra kết quả
-
-Trên terminal chính của lab, gõ:
-
-```bash
 checkwork
 ```
 
-Kết quả đúng cần có:
+Can thay:
+
+```text
+Y - audio_modified
+```
+
+## Ket qua cuoi cung
 
 ```text
 Y - cover_created
@@ -236,33 +179,8 @@ Y - stego_created
 Y - audio_modified
 ```
 
-Ý nghĩa các mục chấm:
-
-- `cover_created`: đã tạo file audio gốc `cover.wav`.
-- `secret_image_created`: đã tạo file ảnh bí mật `secret.png`.
-- `secret_image_viewed`: đã mở trực tiếp `secret.png` trong lab.
-- `image_processed`: ảnh bí mật đã được đọc, hoán vị bằng khóa và chuẩn hóa để dùng như spectrogram.
-- `istft_signal_created`: đã dùng Inverse STFT để biến spectrogram từ ảnh thành tín hiệu miền thời gian.
-- `dwt_highfreq_embedded`: đã dùng DWT nhiều mức trên audio gốc và ghi đè tín hiệu bí mật vào hệ số chi tiết của mức phân rã cuối.
-- `stego_created`: đã chạy chương trình nhúng tin và tạo `stego.wav`.
-- `audio_modified`: `stego.wav` khác `cover.wav`, chứng tỏ quá trình nhúng đã làm thay đổi tín hiệu audio.
-
-### Kết thúc bài lab
-
-Trên terminal chính, gõ:
+Ket thuc:
 
 ```bash
 stoplab audio-spectrogram-dwt
-```
-
-Kết quả sẽ được lưu tại:
-
-```bash
-/home/student/labtainer_xfer/audio-spectrogram-dwt
-```
-
-Tên file bài làm sẽ có dạng:
-
-```text
-B22DCAT311.audio-spectrogram-dwt.lab
 ```

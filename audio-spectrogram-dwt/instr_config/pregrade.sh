@@ -32,7 +32,7 @@ else
     fail "SECRET_IMAGE_CREATED" "secret.png missing"
 fi
 
-if grep -q "PASS_IMAGE_PROCESSED" "$result" 2>/dev/null || [ -s "$workdir/.istft_signal_created" ]; then
+if [ -s "$workdir/.image_processed" ]; then
     pass "IMAGE_PROCESSED"
 else
     fail "IMAGE_PROCESSED" "image processing not completed"

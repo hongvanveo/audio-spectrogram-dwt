@@ -2,69 +2,129 @@ LAB 5 - GIAU ANH VAO AUDIO BANG SPECTROGRAM, INVERSE STFT VA DWT
 
 Muc tieu
 -------
-Trong lab nay, sinh vien tao:
+Sinh vien thuc hien tung cong doan rieng:
 
-  1. cover.wav   - audio goc
-  2. secret.png  - anh bi mat
-  3. stego.wav   - audio da nhung anh bi mat
+  1. Tao audio goc cover.wav.
+  2. Tao hoac chuan bi anh bi mat secret.png.
+  3. Xu ly anh: doc anh, hoan vi bang key, chuan hoa thanh ma tran spectrogram.
+  4. Xu ly tin hieu: dung Inverse STFT de bien ma tran anh thanh tin hieu mien thoi gian.
+  5. Nhung tin: dung DWT tren audio goc, ghi tin hieu bi mat vao he so tan so cao, IDWT thanh stego.wav.
+  6. Nghe/xem va kiem tra audio da thay doi.
 
-Quy trinh
----------
+Quy trinh ky thuat
+------------------
 
   secret.png
-  -> hoan vi bang key
-  -> xem nhu spectrogram
-  -> Inverse STFT
-  -> tin hieu mien thoi gian
-  -> DWT audio goc
-  -> nhung vao he so tan so cao
+  -> process_image_task.py: hoan vi bang key, tao processed_image.json
+  -> istft_task.py: xem processed_image.json nhu spectrogram, tao hidden_signal.json
+  -> dwt_embed_task.py: DWT cover.wav, nhung hidden_signal vao detail coefficients
   -> IDWT
   -> stego.wav
+
+Sau moi task, co the chay checkwork de xem muc tuong ung chuyen sang Y.
 
 Task 1 - Tao audio cover
 ------------------------
   cd ~/stego
   python3 generate_cover.py --out cover.wav
-
-Task 2 - Tao anh bi mat
------------------------
-  python3 generate_secret_image.py --out secret.png
-  ./view_secret.sh
-
-Task 3 - Dien ten file trong embed_task.py
-------------------------------------------
-  nano embed_task.py
-
-Sua hai dong TODO thanh:
-
-  COVER_FILE = "cover.wav"
-  SECRET_IMAGE = "secret.png"
-
-Task 4 - Nhung anh vao audio
-----------------------------
-  python3 embed_task.py
-
-Task 5 - Kiem tra audio sau nhung
----------------------------------
-  python3 analyze_audio.py --cover cover.wav --stego stego.wav
-  ./play_cover.sh
-  ./play_stego.sh
-
-Task 6 - Cham diem
-------------------
   checkwork
 
-Ket qua mong doi:
+Muc can Y:
+  cover_created
 
+Task 2 - Tao anh bi mat va mo xem
+---------------------------------
+  python3 generate_secret_image.py --out secret.png
+  ./view_secret.sh
+  checkwork
+
+Muc can Y:
+  secret_image_created
+  secret_image_viewed
+
+Neu giao vien cung cap san anh, co the copy anh do vao ~/stego/secret.png thay cho lenh generate_secret_image.py.
+
+Task 3 - Xu ly anh thanh ma tran spectrogram
+--------------------------------------------
+  nano process_image_task.py
+
+Sua cac dong TODO thanh:
+
+  SECRET_IMAGE = "secret.png"
+  PERMUTATION_KEY = 3101
+
+Chay:
+
+  python3 process_image_task.py
+  checkwork
+
+Ket qua tao ra:
+  processed_image.json
+
+Muc can Y:
+  image_processed
+
+Task 4 - Inverse STFT tao tin hieu mien thoi gian
+-------------------------------------------------
+  nano istft_task.py
+
+Sua cac dong TODO thanh:
+
+  COVER_FILE = "cover.wav"
+  PROCESSED_IMAGE = "processed_image.json"
+
+Chay:
+
+  python3 istft_task.py
+  checkwork
+
+Ket qua tao ra:
+  hidden_signal.json
+
+Muc can Y:
+  istft_signal_created
+
+Task 5 - Nhung tin hieu vao vung tan so cao cua audio bang DWT
+--------------------------------------------------------------
+  nano dwt_embed_task.py
+
+Sua cac dong TODO thanh:
+
+  COVER_FILE = "cover.wav"
+  HIDDEN_SIGNAL = "hidden_signal.json"
+
+Chay:
+
+  python3 dwt_embed_task.py
+  checkwork
+
+Ket qua tao ra:
+  stego.wav
+
+Muc can Y:
+  dwt_highfreq_embedded
+  stego_created
+
+Task 6 - Nghe va kiem tra audio
+-------------------------------
+  ./play_cover.sh
+  ./play_stego.sh
+  python3 analyze_audio.py --cover cover.wav --stego stego.wav
+  checkwork
+
+Muc can Y:
+  audio_modified
+
+Ket qua checkwork cuoi cung
+---------------------------
   Y - cover_created
   Y - secret_image_created
+  Y - secret_image_viewed
   Y - image_processed
   Y - istft_signal_created
   Y - dwt_highfreq_embedded
   Y - stego_created
   Y - audio_modified
-  Y - secret_image_viewed
 
 Ket thuc lab:
-
-  stoplab
+  stoplab audio-spectrogram-dwt

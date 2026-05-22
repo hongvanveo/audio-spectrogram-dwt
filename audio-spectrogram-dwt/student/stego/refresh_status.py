@@ -19,6 +19,8 @@ def main():
         tokens.add("PASS_COVER_CREATED")
     if (WORKDIR / "secret.png").is_file() and (WORKDIR / "secret.png").stat().st_size > 0:
         tokens.add("PASS_SECRET_IMAGE_CREATED")
+    if (WORKDIR / ".image_processed").is_file():
+        tokens.add("PASS_IMAGE_PROCESSED")
     if (WORKDIR / ".istft_signal_created").is_file():
         tokens.add("PASS_ISTFT_SIGNAL_CREATED")
     if (WORKDIR / ".dwt_highfreq_embedded").is_file():
